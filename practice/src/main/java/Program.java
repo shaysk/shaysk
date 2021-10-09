@@ -24,24 +24,24 @@ public class Program {
         f.setLength(Block_Sides_Length);
 
         int RunningFrameX = f.getPanelWidth();
-        int RunningFrameY = f.getPanelHight() - Block_Sides_Length;
-        int Count_Blocks = f.getPanelWidth()/Block_Sides_Length;
+        int Count_BlocksX = f.getPanelWidth() / Block_Sides_Length;
+        int Count_BlocksY = (f.getPanelHight() - 15) / Block_Sides_Length; // מורידים 15 שכן כ15 פיקסלים מהפאנל מוקדשים לכותרת
 
-        while (RunningFrameX > 0 && RunningFrameY > 0 && Count_Blocks != 0)
+        int Count_BlocksY_Left = 0;
+
+        while (RunningFrameX > 0 && Count_BlocksY_Left < Count_BlocksY && Count_BlocksX > 0)
         {
-            int i;
-            for (i = 0; i < Count_Blocks; i++)
+            int i = 0;
+            for (i = 0; i < Count_BlocksX; i++)
             {
-                f.addBlock(i*Block_Sides_Length +
-                        (f.getWidth()%Block_Sides_Length)/2 + (f.getWidth() - RunningFrameX)/2,
-                        f.getPanelHight() - RunningFrameY - Block_Sides_Length);
+                f.addBlock(i * Block_Sides_Length +
+                        (f.getWidth() % Block_Sides_Length)/2 + (f.getWidth() - RunningFrameX)/2,
+                        Count_BlocksY_Left * Block_Sides_Length);
             }
             RunningFrameX -= Block_Sides_Length;
-            RunningFrameY -= Block_Sides_Length;
-            Count_Blocks--;
+            Count_BlocksY_Left++;
+            Count_BlocksX--;
         }
-
-
         f.showFrame();
     }
     
